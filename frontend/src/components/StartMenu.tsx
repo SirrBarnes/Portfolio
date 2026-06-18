@@ -3,7 +3,7 @@ import about from '../icons/about.png';
 import projects from '../icons/computer.png';
 import contact from '../icons/contact.png';
 import gallery from '../icons/gallery.png';
-import minesweep from '../icons/minesweep.png';
+// import minesweep from '../icons/minesweep.png';
 import terminal from '../icons/terminal.png';
 import resume from '../icons/txt.png';
 

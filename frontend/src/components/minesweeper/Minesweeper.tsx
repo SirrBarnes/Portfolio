@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 
 import {
-  login,
   createGame,
   revealCell,
   toggleFlag,
   getGame,
-  deleteGame,
   ensureAuth,
 } from "../../api/minesweeper";
 
@@ -22,7 +20,7 @@ export default function Minesweeper() {
     []
   );
 
-  const [gameId, setGameId] =
+  const [gameId] =
     useState("");
 
   const [status, setStatus] =

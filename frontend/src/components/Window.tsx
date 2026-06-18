@@ -43,7 +43,7 @@ export default function Window({
 
   const offset = useRef({ x: 0, y: 0 });
 
-  const contentRef = useRef<HTMLDivElement>(null);
+  // const contentRef = useRef<HTMLDivElement>(null);
 
   const snapBackIntoView = (currentPos: { x: number; y: number }, currentSize: { width: number; height: number }) => {
     const desktopWidth = window.innerWidth;
@@ -78,17 +78,17 @@ export default function Window({
     posRef.current = pos;
   }, [pos]);
 
-  useEffect(() => {
-    if (!contentRef.current) return;
+  // useEffect(() => {
+  //   if (!contentRef.current) return;
 
-    const observer = new ResizeObserver(([entry]) => {
-      const { width } = entry.contentRect;
-    });
+  //   // const observer = new ResizeObserver(([entry]) => {
+  //   //   const { width } = entry.contentRect;
+  //   // });
 
-    observer.observe(contentRef.current);
+  //   observer.observe(contentRef.current);
 
-    return () => observer.disconnect();
-  }, []);
+  //   return () => observer.disconnect();
+  // }, []);
 
   /* ========================= */
   /* DRAG START */

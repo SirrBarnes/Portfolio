@@ -16,7 +16,7 @@ import terminal from '../icons/terminal.png';
 import about from '../icons/about.png';
 import gallery from '../icons/gallery.png';
 import projects from '../icons/computer.png';
-import minesweep from '../icons/minesweep.png';
+// import minesweep from '../icons/minesweep.png';
 
 type WindowType = "Projects" | "About" | "Terminal" | "Contact" | "Resume" | "Gallery" | "Minesweeper";
 
@@ -37,12 +37,12 @@ type WindowData = {
 
 export default function Desktop() {
     const [windows, setWindows] = useState<WindowData[]>([]);
-    const [zCounter, setZCounter] = useState(1);
+    const [, setZCounter] = useState(1);
     const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
     const [cascadeOffset, setCascadeOffset] = useState(0);
-    const desktopWidth = window.innerWidth;
+    // const desktopWidth = window.innerWidth;
     const windowsLayerRef = useRef<HTMLDivElement>(null);
-    const [contextMenu, setContextMenu] = useState<{
+    const [, setContextMenu] = useState<{
         x: Number;
         y: Number;
         type: "icon" | "task" | "taskbar";

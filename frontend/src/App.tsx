@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import CRTScreen from "./components/CRTScreen";
 import OS from './components/OS'
 import "./styles/App.css";

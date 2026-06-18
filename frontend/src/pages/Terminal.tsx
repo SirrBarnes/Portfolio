@@ -19,9 +19,9 @@ const ASCII_BANNER = [
   "",
 ];
 
-export default function Terminal({ onSizeChange, }: { onSizeChange?: (size: { width: number; height: number }) => void; }) {
-  const [commandHistory, setCommandHistory] = useState<string[]>([]);
-  const [historyIndex, setHistoryIndex] = useState<number>(-1);
+export default function Terminal({ }: { onSizeChange?: (size: { width: number; height: number }) => void }) {
+  const [, setCommandHistory] = useState<string[]>([]);
+  const [, setHistoryIndex] = useState<number>(-1);
 
   const [history, setHistory] = useState<string[]>([]);
   const [input, setInput] = useState("");
