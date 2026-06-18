@@ -6,7 +6,7 @@ import {
   toggleFlag,
   getGame,
   ensureAuth,
-} from "../../api/minesweeper";
+} from "../../../api/minesweeper";
 
 type Cell = {
   revealed: boolean;
