@@ -1,7 +1,6 @@
 export default function Resume() {
-    const resumeUrl = "https://drive.google.com/file/d/1cUPHJdKf610VWR-GXHEow49ZzoWdRryY/preview";
-
-    const resumeDownloadUrl = "https://drive.google.com/uc?export=download&id=1cUPHJdKf610VWR-GXHEow49ZzoWdRryY";
+    const resumeUrl = "/Sergio_TorresResume.pdf";
+    const resumeDownloadUrl = "/Sergio_TorresResume.pdf";
 
     const handleDownload = () => {
         const a = document.createElement("a");
