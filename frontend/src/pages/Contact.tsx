@@ -37,11 +37,14 @@ export default function Contact() {
     setSending(true);
 
     try {
-      await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+      const response = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ from, subject, message }),
       });
+
+      if (!response.ok) throw new Error("Failed to send");
+
       setSent(true);
     } catch (e) {
       alert("Failed to send. Please try again.");
