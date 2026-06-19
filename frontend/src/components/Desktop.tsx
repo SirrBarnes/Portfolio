@@ -100,8 +100,8 @@ export default function Desktop() {
                         zIndex: newZ,
                         x: 120 + offset,
                         y: 120 + offset,
-                        width: 1100,   // cap terminal
-                        height: 850,
+                        width: Math.round(window.innerWidth * 0.65),
+                        height: Math.round((window.innerHeight - 40) * 0.75),
                     },
                 ];
             });

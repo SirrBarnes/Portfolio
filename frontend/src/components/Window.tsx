@@ -43,6 +43,11 @@ export default function Window({
 
   const offset = useRef({ x: 0, y: 0 });
 
+  const sizeRatio = useRef({
+    widthRatio: size.width / window.innerWidth,
+    heightRatio: size.height / (window.innerHeight - 40),
+  });
+
   useEffect(() => {
     posRef.current = pos;
   }, [pos]);
@@ -236,6 +241,11 @@ export default function Window({
           width: newWidth,
           height: newHeight,
         });
+
+        sizeRatio.current = {
+          widthRatio: newWidth / window.innerWidth,
+          heightRatio: newHeight / (window.innerHeight - 40),
+        };
       }
     };
 
@@ -276,6 +286,33 @@ export default function Window({
       height: size.height,
     };
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (data.maximized) return;
+
+      const desktopWidth = window.innerWidth;
+      const desktopHeight = window.innerHeight - 40;
+
+      setSize(() => {
+        const scaledWidth = Math.max(300, Math.round(sizeRatio.current.widthRatio * desktopWidth));
+        const scaledHeight = Math.max(200, Math.round(sizeRatio.current.heightRatio * desktopHeight));
+        return { width: scaledWidth, height: scaledHeight };
+      });
+
+      setPos((prevPos) => {
+        const clampedX = Math.min(prevPos.x, desktopWidth - 100);
+        const clampedY = Math.min(prevPos.y, desktopHeight - 100);
+        return {
+          x: Math.max(0, clampedX),
+          y: Math.max(0, clampedY),
+        };
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [data.maximized]);
+
   return (
     <>
       {/* SNAP PREVIEW OVERLAY */}
@@ -315,22 +352,22 @@ export default function Window({
           <span>{data.type}</span>
 
           <div>
-            <button 
+            <button
               onMouseDown={(e) => e.stopPropagation()}
               onClick={(e) => { e.stopPropagation(); onMinimize(data.id) }}>
-                🗕
+              🗕
             </button>
-            
-            <button 
+
+            <button
               onMouseDown={(e) => e.stopPropagation()}
               onClick={(e) => { e.stopPropagation(); onMaximize(data.id) }}>
-                🗖
+              🗖
             </button>
-            
-            <button 
+
+            <button
               onMouseDown={(e) => e.stopPropagation()}
               onClick={(e) => { e.stopPropagation(); onClose(data.id) }}>
-                ✖
+              ✖
             </button>
 
           </div>
