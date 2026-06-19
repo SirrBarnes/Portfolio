@@ -43,6 +43,9 @@ export default function Window({
 
   const offset = useRef({ x: 0, y: 0 });
 
+  useEffect(() => {
+    posRef.current = pos;
+  }, [pos]);
   // const contentRef = useRef<HTMLDivElement>(null);
 
   const snapBackIntoView = (currentPos: { x: number; y: number }, currentSize: { width: number; height: number }) => {
@@ -51,39 +54,38 @@ export default function Window({
 
     let { x, y } = currentPos;
 
-    // too far left
-    if (x < 0) {
+    const halfWidth = currentSize.width / 2;
+    const halfHeight = currentSize.height / 2;
+
+    // too far left — more than half the window is off the left edge
+    if (x + halfWidth < 0) {
       x = 0;
     }
 
-    // too far right
-    if (x + currentSize.width > desktopWidth) {
+    // too far right — more than half the window is off the right edge
+    if (x + halfWidth > desktopWidth) {
       x = desktopWidth - currentSize.width;
     }
 
-    // too far up
-    if (y < 0) {
+    // too far up — more than half the window is above the desktop
+    if (y + halfHeight < 0) {
       y = 0;
     }
 
-    // too far down
-    if (y + currentSize.height > desktopHeight) {
+    // too far down — more than half the window is below the desktop
+    if (y + halfHeight > desktopHeight) {
       y = desktopHeight - currentSize.height;
     }
 
     return { x, y };
   };
 
-  useEffect(() => {
-    posRef.current = pos;
-  }, [pos]);
-
   // useEffect(() => {
   //   if (!contentRef.current) return;
 
-  //   // const observer = new ResizeObserver(([entry]) => {
-  //   //   const { width } = entry.contentRect;
-  //   // });
+  // const observer = new ResizeObserver(([entry]) => {
+  //   const { width } = entry.contentRect;
+  // });
 
   //   observer.observe(contentRef.current);
 
@@ -313,12 +315,24 @@ export default function Window({
           <span>{data.type}</span>
 
           <div>
-            <button onClick={() => onMinimize(data.id)}>🗕</button>
-            <button onClick={() => {
-              onMaximize(data.id)
-            }}
-            >🗖</button>
-            <button onClick={() => onClose(data.id)}>✖</button>
+            <button 
+              onMouseDown={(e) => e.stopPropagation()}
+              onClick={(e) => { e.stopPropagation(); onMinimize(data.id) }}>
+                🗕
+            </button>
+            
+            <button 
+              onMouseDown={(e) => e.stopPropagation()}
+              onClick={(e) => { e.stopPropagation(); onMaximize(data.id) }}>
+                🗖
+            </button>
+            
+            <button 
+              onMouseDown={(e) => e.stopPropagation()}
+              onClick={(e) => { e.stopPropagation(); onClose(data.id) }}>
+                ✖
+            </button>
+
           </div>
         </div>
 

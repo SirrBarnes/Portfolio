@@ -131,8 +131,8 @@ export default function Taskbar({
         {/* CLOCK */}
         <div className="taskbar-right">
           <div className={`clock ${clockOpen ? "active-clock" : ""}`} onClick={() => setClockOpen(prev => !prev)}>
-            <div className = 'taskbar-time'>{taskbarTime}</div>
-            <div className = 'taskbar-date'>{taskbarDate}</div>
+            <div className='taskbar-time'>{taskbarTime}</div>
+            <div className='taskbar-date'>{taskbarDate}</div>
           </div>
         </div>
       </div>
@@ -200,17 +200,31 @@ export default function Taskbar({
           })()}
 
           {contextMenu.type === "taskbar" && (
-            <div
-              className={`context-item ${windows.length != 0 ? "" : "disabled"}`}
-              onClick={() => {
-                if (windows.length === 0) return;
+            <>
+              <div
+                className = {`context-item ${windows.some(w => !w.minimized) ? "" : "disabled"}`}
+                onClick={() => {
+                  const visibleWindows = windows.filter(w => !w.minimized);
+                  if (visibleWindows.length === 0) return;
 
-                onCloseAll();
-                setContextMenu(null);
-              }}
-            >
-              Close All Windows
-            </div>
+                  visibleWindows.forEach(w => onMinimize(w.id));
+                  setContextMenu(null);
+                }}
+              >
+                Minimize All Windows  
+              </div>
+              
+              <div
+                className={`context-item ${windows.length != 0 ? "" : "disabled"}`}
+                onClick={() => {
+                  if (windows.length === 0) return;
+                  onCloseAll();
+                  setContextMenu(null);
+                }}
+              >
+                Close All Windows
+              </div>
+            </>
           )}
         </div>
       )}
