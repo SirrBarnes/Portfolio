@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-// 🟢 CONSTANT BANNER (never changes)
 const ASCII_BANNER = [
   "  █████████                               ███              ███████     █████████",
   " ███░░░░░███                             ░░░             ███░░░░░███  ███░░░░░███",
@@ -19,6 +18,9 @@ const ASCII_BANNER = [
   "",
 ];
 
+// longest line length, used to calculate the scale factor
+const LONGEST_LINE = Math.max(...ASCII_BANNER.map((l) => l.length));
+
 export default function Terminal({ }: { onSizeChange?: (size: { width: number; height: number }) => void }) {
   const [, setCommandHistory] = useState<string[]>([]);
   const [, setHistoryIndex] = useState<number>(-1);
@@ -27,19 +29,42 @@ export default function Terminal({ }: { onSizeChange?: (size: { width: number; h
   const [input, setInput] = useState("");
 
   const terminalRef = useRef<HTMLDivElement>(null);
+  const historyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  const [bannerFontSize, setBannerFontSize] = useState(16);
 
   useEffect(() => {
     setTimeout(() => {
       inputRef.current?.focus({ preventScroll: true });
-    }, 50);  // small delay so the window has finished mounting/positioning
+    }, 50);
   }, []);
 
-  // useEffect(() => {
-  //   if (history.length === 0) return;
-  //   bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  // }, [history]);
+  // 🟢 scale the banner to fit the available width
+  useEffect(() => {
+    if (!historyRef.current) return;
+
+    const el = historyRef.current;
+
+    const calculateFit = () => {
+      const availableWidth = el.clientWidth - 16; // minus padding
+      // monospace char width is roughly 0.6 * font-size for Courier New
+      const charWidthRatio = 0.6;
+      const maxFontSize = availableWidth / (LONGEST_LINE * charWidthRatio);
+
+      // clamp so it never goes above the normal 16px or below a readable floor
+      const clamped = Math.max(6, Math.min(16, maxFontSize));
+      setBannerFontSize(clamped);
+    };
+
+    calculateFit();
+
+    const observer = new ResizeObserver(calculateFit);
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleCommand = () => {
     const cmd = input.trim();
@@ -72,14 +97,7 @@ export default function Terminal({ }: { onSizeChange?: (size: { width: number; h
         response = "Bad command or file name";
     }
 
-    setHistory((prev) => [
-      ...prev,
-      ` `,
-      `C:\\> ${cmd}`,
-      response,
-      "",
-    ]);
-
+    setHistory((prev) => [...prev, ` `, `C:\\> ${cmd}`, response, ""]);
     setCommandHistory((prev) => [...prev, cmd]);
     setHistoryIndex(-1);
     setInput("");
@@ -91,11 +109,15 @@ export default function Terminal({ }: { onSizeChange?: (size: { width: number; h
       className="dos-terminal"
       onClick={() => inputRef.current?.focus({ preventScroll: true })}
     >
-      {/* 🟢 VISIBLE RENDER */}
-      <div className="dos-history">
-        {ASCII_BANNER.map((line, i) => (
-          <div key={`banner-${i}`}>{line}</div>
-        ))}
+      <div className="dos-history" ref={historyRef}>
+        <div
+          className="dos-banner"
+          style={{ fontSize: `${bannerFontSize}px`, lineHeight: 1.1 }}
+        >
+          {ASCII_BANNER.map((line, i) => (
+            <div key={`banner-${i}`}>{line}</div>
+          ))}
+        </div>
 
         {history.map((line, i) => (
           <div key={`hist-${i}`}>{line}</div>
@@ -104,10 +126,8 @@ export default function Terminal({ }: { onSizeChange?: (size: { width: number; h
         <div ref={bottomRef} />
       </div>
 
-      {/* INPUT */}
       <div className="dos-input-line">
         <span>C:\&gt;</span>
-
         <input
           ref={inputRef}
           value={input}

@@ -891,6 +891,10 @@ button {
       transparent 2px);
 }
 
+.dos-banner {
+  white-space: pre;
+}
+
 /* ========================= */
 /* BOOT SCREEN */
 /* ========================= */
