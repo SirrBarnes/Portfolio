@@ -53,10 +53,8 @@ export default function Projects({ onOpenApp }: Props) {
       <section className="about-section project-block">
         <h3>NeetPlan</h3>
 
-        <div className="project-image-placeholder">
-          {/* TODO: replace with screenshot */}
-          <span>Add Screenshot</span>
-        </div>
+        <img src={"yourScreenshot"} alt="YuGiOh Deck Builder screenshot" className="project-image" />
+
 
         <p>
           A daily planning app that lets users create, edit, and manage tasks

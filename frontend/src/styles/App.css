@@ -38,11 +38,6 @@ body {
   margin: 0;
   font-family: "Courier New", monospace;
   overflow: hidden;
-
-  /* CRT color bleed */
-  text-shadow:
-    0.5px 0 red,
-    -0.5px 0 cyan;
 }
 
 p,
@@ -1416,6 +1411,17 @@ body.dragging {
   border: none;
   display: block;
   background: white;
+}
+
+.resume-pdf-scroll {
+  flex: 1;
+  width: 100%;
+  overflow-y: auto;
+  background: #525659; /* typical PDF-viewer gray, optional */
+  display: flex;
+  flex-direction: column;
+  text-shadow: none !important;
+  align-items: center;
 }
 
 /* ========================= */
