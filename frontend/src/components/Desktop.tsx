@@ -254,8 +254,8 @@ export default function Desktop() {
                             onFocus={focusWindow}
                             activeWindowId={activeWindowId}
                         >
-                            {win.type === "Projects" && <Projects />}
-                            {win.type === "About" && <About />}
+                            {win.type === "Projects" && <Projects onOpenApp={openWindow}/>}
+                            {win.type === "About" && <About onOpenApp={openWindow}/>}
                             {win.type === "Contact" && <Contact />}
                             {win.type === "Gallery" && <Gallery />}
                             {win.type === "Resume" && <Resume />}
