@@ -43,7 +43,7 @@ export default function About({ onOpenApp }: Props) {
           {[
             "React", "TypeScript", "JavaScript", "Node.js", "C#", "C++",
             "Python", "PostgreSQL", "Sequelize", "GraphQL", "HTML", "CSS",
-            "Bootstrap",
+            "Bootstrap", "Supabase", "Git", "Maya 3D", "Visual Studio Code", "Python", "Unity 2D & 3D", 
           ].map((tag) => (
             <span key={tag} className="about-tag">
               {tag}
@@ -72,7 +72,7 @@ export default function About({ onOpenApp }: Props) {
         <strong className="about-link" onClick={() => onOpenApp("Resume")}>
           Resume
         </strong>
-        , or drop me a line through{" "}
+        , or send me an email through{" "}
         <strong className="about-link" onClick={() => onOpenApp("Contact")}>
           Contact
         </strong>
