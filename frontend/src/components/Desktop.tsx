@@ -40,7 +40,54 @@ export default function Desktop() {
     const [, setZCounter] = useState(1);
     const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
     const [cascadeOffset, setCascadeOffset] = useState(0);
-    // const desktopWidth = window.innerWidth;
+    const ICON_WIDTH = 120;
+    const ICON_MIN_SPACING_Y = 60;
+    const ICON_MAX_SPACING_Y = 105;
+    const ICON_START_X = 20;
+    const ICON_START_Y = 20;
+    const TASKBAR_HEIGHT = 40;
+    const ICON_LABELS = ["Projects", "Resume", "Gallery", "Terminal", "Contact", "About"];
+
+    const [iconSpacing, setIconSpacing] = useState(ICON_MAX_SPACING_Y);
+    const [iconsPerColumn, setIconsPerColumn] = useState(ICON_LABELS.length);
+
+    useEffect(() => {
+        const calculateLayout = () => {
+            const availableHeight = window.innerHeight - TASKBAR_HEIGHT - ICON_START_Y * 2;
+            const totalIcons = ICON_LABELS.length;
+
+            // how much vertical space each icon would need at max spacing
+            const neededHeight = totalIcons * ICON_MAX_SPACING_Y;
+
+            if (neededHeight <= availableHeight) {
+                // everything fits at full spacing, no need to shrink or wrap
+                setIconSpacing(ICON_MAX_SPACING_Y);
+                setIconsPerColumn(totalIcons);
+                return;
+            }
+
+            // try shrinking spacing down to the floor before wrapping to a new column
+            const fittedSpacing = Math.max(
+                ICON_MIN_SPACING_Y,
+                Math.floor(availableHeight / totalIcons)
+            );
+
+            if (fittedSpacing >= ICON_MIN_SPACING_Y && totalIcons * fittedSpacing <= availableHeight) {
+                setIconSpacing(fittedSpacing);
+                setIconsPerColumn(totalIcons);
+            } else {
+                // even at minimum spacing it doesn't fit — wrap into multiple columns
+                const maxPerColumn = Math.max(1, Math.floor(availableHeight / ICON_MIN_SPACING_Y));
+                setIconSpacing(ICON_MIN_SPACING_Y);
+                setIconsPerColumn(maxPerColumn);
+            }
+        };
+
+        calculateLayout();
+        window.addEventListener("resize", calculateLayout);
+        return () => window.removeEventListener("resize", calculateLayout);
+    }, []);
+
     const windowsLayerRef = useRef<HTMLDivElement>(null);
     const [, setContextMenu] = useState<{
         x: Number;
@@ -245,47 +292,30 @@ export default function Desktop() {
 
             {/* ICON LAYER */}
             <div className="desktop-icons-layer">
-                <Icon
-                    index={0}
-                    label="Projects"
-                    icon={projects}
-                    onOpen={() => openWindow("Projects")}
-                />
+                {ICON_LABELS.map((label, index) => {
+                    const column = Math.floor(index / iconsPerColumn);
+                    const row = index % iconsPerColumn;
 
-                <Icon
-                    index={1}
-                    label="Resume"
-                    icon={resume}
-                    onOpen={() => openWindow("Resume")}
-                />
+                    const icons: Record<string, { icon: string; onOpen: () => void }> = {
+                        Projects: { icon: projects, onOpen: () => openWindow("Projects") },
+                        Resume: { icon: resume, onOpen: () => openWindow("Resume") },
+                        Gallery: { icon: gallery, onOpen: () => openWindow("Gallery") },
+                        Terminal: { icon: terminal, onOpen: () => openWindow("Terminal") },
+                        Contact: { icon: contact, onOpen: () => openWindow("Contact") },
+                        About: { icon: about, onOpen: () => openWindow("About") },
+                    };
 
-                <Icon
-                    index={2}
-                    label="Gallery"
-                    icon={gallery}
-                    onOpen={() => openWindow("Gallery")}
-                />
-
-                <Icon
-                    index={3}
-                    label="Terminal"
-                    icon={terminal}
-                    onOpen={() => openWindow("Terminal")}
-                />
-
-                <Icon
-                    index={4}
-                    label="Contact"
-                    icon={contact}
-                    onOpen={() => openWindow("Contact")}
-                />
-
-                <Icon
-                    index={5}
-                    label="About"
-                    icon={about}
-                    onOpen={() => openWindow("About")}
-                />
+                    return (
+                        <Icon
+                            key={label}
+                            label={label}
+                            icon={icons[label].icon}
+                            onOpen={icons[label].onOpen}
+                            top={ICON_START_Y + row * iconSpacing}
+                            left={ICON_START_X + column * ICON_WIDTH}
+                        />
+                    );
+                })}
             </div>
 
             {/* WINDOW LAYER */}

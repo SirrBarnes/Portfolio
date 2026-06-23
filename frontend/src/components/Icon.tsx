@@ -3,19 +3,16 @@ import useDoubleClick from "./Click";
 type Props = {
   icon: string;
   label: string;
-  index: number;
+  top: number;
+  left: number;
   onOpen: () => void;
 };
-
-const START_X = 20;
-const START_Y = 20;
-
-const ICON_SPACING_Y = 105;
 
 export default function Icon({
   label,
   icon,
-  index,
+  top,
+  left,
   onOpen,
 }: Props) {
   const handleSmartClick = useDoubleClick();
@@ -26,8 +23,8 @@ export default function Icon({
       onClick={() => handleSmartClick(onOpen)}
       style={{
         position: "absolute",
-        left: START_X,
-        top: START_Y + index * ICON_SPACING_Y,
+        left,
+        top,
       }}
     >
       <div className="icon-inner">
