@@ -349,7 +349,11 @@ export default function Window({
         onMouseDown={() => onFocus(data.id)}
       >
         <div className="window-title" onMouseDown={handleMouseDown}>
-          <span>{data.type}</span>
+          <span>
+            {data.type === "ImageViewer" && data.payload?.imageName
+              ? data.payload.imageName
+              : data.type}
+          </span>
 
           <div>
             <button

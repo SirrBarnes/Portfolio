@@ -123,7 +123,7 @@ export default function Taskbar({
               }}
               className={w.id === activeWindowId ? "active-task" : ""}
             >
-              {w.type}
+              {w.type === "ImageViewer" && w.payload?.imageName ? w.payload.imageName : w.type}
             </button>
           ))}
         </div>
@@ -202,7 +202,7 @@ export default function Taskbar({
           {contextMenu.type === "taskbar" && (
             <>
               <div
-                className = {`context-item ${windows.some(w => !w.minimized) ? "" : "disabled"}`}
+                className={`context-item ${windows.some(w => !w.minimized) ? "" : "disabled"}`}
                 onClick={() => {
                   const visibleWindows = windows.filter(w => !w.minimized);
                   if (visibleWindows.length === 0) return;
@@ -211,9 +211,9 @@ export default function Taskbar({
                   setContextMenu(null);
                 }}
               >
-                Minimize All Windows  
+                Minimize All Windows
               </div>
-              
+
               <div
                 className={`context-item ${windows.length != 0 ? "" : "disabled"}`}
                 onClick={() => {

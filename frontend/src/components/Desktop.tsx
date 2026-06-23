@@ -18,7 +18,7 @@ import gallery from '../icons/gallery.png';
 import projects from '../icons/computer.png';
 // import minesweep from '../icons/minesweep.png';
 
-type WindowType = "Projects" | "About" | "Terminal" | "Contact" | "Resume" | "Gallery" | "Minesweeper";
+type WindowType = "Projects" | "About" | "Terminal" | "Contact" | "Resume" | "Gallery" | "Minesweeper" | "ImageViewer";
 
 type WindowData = {
     id: string;
@@ -29,7 +29,7 @@ type WindowData = {
     isMinimizing?: boolean;
     x?: number;
     y?: number;
-
+    payload?: { imageSrc: string; imageName: string };
     width?: number;
     height?: number;
 };
@@ -61,6 +61,53 @@ export default function Desktop() {
             windowsLayerRef.current.scrollLeft = 0;
         }
     }, [windows]);
+
+    const openImageWindow = (imageSrc: string, imageName: string) => {
+        setZCounter((prevZ) => {
+            const newZ = prevZ + 1;
+
+            setWindows((prev) => {
+                // 🔥 check for an existing window showing this same image
+                const existing = prev.find(
+                    (w) => w.type === "ImageViewer" && w.payload?.imageSrc === imageSrc
+                );
+
+                if (existing) {
+                    setActiveWindowId(existing.id);
+
+                    return prev.map((w) =>
+                        w.id === existing.id
+                            ? { ...w, minimized: false, zIndex: newZ }
+                            : w
+                    );
+                }
+
+                // 🔥 create new instance only if none exists
+                const id = crypto.randomUUID();
+                const offset = cascadeOffset * 30;
+
+                setActiveWindowId(id);
+                setCascadeOffset((prev) => (prev + 1) % 10);
+
+                return [
+                    ...prev,
+                    {
+                        id,
+                        type: "ImageViewer" as WindowType,
+                        minimized: false,
+                        maximized: false,
+                        zIndex: newZ,
+                        x: 160 + offset,
+                        y: 100 + offset,
+                        width: Math.round(window.innerWidth * 0.5),
+                        height: Math.round((window.innerHeight - 40) * 0.6),
+                        payload: { imageSrc, imageName },
+                    },
+                ];
+            });
+            return newZ;
+        });
+    };
 
     const openWindow = (type: WindowType, forceNew = false) => {
         setZCounter((prevZ) => {
@@ -254,10 +301,17 @@ export default function Desktop() {
                             onFocus={focusWindow}
                             activeWindowId={activeWindowId}
                         >
-                            {win.type === "Projects" && <Projects onOpenApp={openWindow}/>}
-                            {win.type === "About" && <About onOpenApp={openWindow}/>}
+                            {win.type === "Projects" && <Projects onOpenApp={openWindow} />}
+                            {win.type === "About" && <About onOpenApp={openWindow} />}
                             {win.type === "Contact" && <Contact />}
-                            {win.type === "Gallery" && <Gallery />}
+                            {win.type === "Gallery" && <Gallery onOpenImage={openImageWindow} />}
+                            {win.type === "ImageViewer" && win.payload && (
+                                <img
+                                    src={win.payload.imageSrc}
+                                    alt={win.payload.imageName}
+                                    className="image-viewer-img"
+                                />
+                            )}
                             {win.type === "Resume" && <Resume />}
                             {win.type === "Terminal" && <Terminal />}
                             {win.type === "Minesweeper" && <Minesweeper />}
