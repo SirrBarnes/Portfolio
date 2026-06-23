@@ -13,10 +13,9 @@ export default function Projects({ onOpenApp }: Props) {
       <section className="about-section project-block">
         <h3>YuGiOh Collection / Deck Builder</h3>
 
-        <div className="project-image-placeholder">
-          {/* TODO: replace with screenshot */}
-          <span>Add Screenshot</span>
-        </div>
+        <img src={"./YuGiOh.png"} alt="YuGiOh Deck Builder screenshot" className="project-image" />
+        <img src={"./YuGiOh-Search.png"} alt="YuGiOh Deck Builder screenshot" className="project-image" />
+
 
         <p>
           A web app that helps users manage their card collection and build
@@ -33,7 +32,7 @@ export default function Projects({ onOpenApp }: Props) {
         </p>
 
         <div className="about-tags">
-          {["HTML", "CSS", "JavaScript", "React", "Bootstrap", "ESLint", "Node.js", "JWTs", "YGOPRO API", "Ant Design", "GraphQL", "MongoDB"].map((tag) => (
+          {["HTML", "CSS", "JavaScript", "React", "Bootstrap", "ESLint", "Node.js", "JWTs", "YGOPRO API", "GraphQL", "MongoDB"].map((tag) => (
             <span key={tag} className="about-tag">{tag}</span>
           ))}
         </div>
@@ -53,7 +52,7 @@ export default function Projects({ onOpenApp }: Props) {
       <section className="about-section project-block">
         <h3>NeetPlan</h3>
 
-        <img src={"yourScreenshot"} alt="YuGiOh Deck Builder screenshot" className="project-image" />
+        <img src={"./YuGiOh.png"} alt="YuGiOh Deck Builder screenshot" className="project-image" />
 
 
         <p>
@@ -91,10 +90,8 @@ export default function Projects({ onOpenApp }: Props) {
       <section className="about-section project-block">
         <h3>Autoshops.com</h3>
 
-        <div className="project-image-placeholder">
-          {/* TODO: replace with screenshot */}
-          <span>Add Screenshot</span>
-        </div>
+        <img src={"./Autoshops.png"} alt="YuGiOh Deck Builder screenshot" className="project-image" />
+        <img src={"./Autoshops-Map.png"} alt="YuGiOh Deck Builder screenshot" className="project-image" />
 
         <p>
           Freelance fullstack work for a small startup, joining their
