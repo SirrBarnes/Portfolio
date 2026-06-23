@@ -20,12 +20,12 @@ export default function Gallery({ onOpenImage }: Props) {
   return (
     <div className="gallery-root">
       {/* TOOLBAR */}
-      <div className="gallery-toolbar">
+      {/* <div className="gallery-toolbar">
         <button className="gallery-toolbar-btn">⬅ Back</button>
         <button className="gallery-toolbar-btn">➡ Forward</button>
         <div className="gallery-toolbar-divider" />
         <span className="gallery-path">C:\My Pictures\Gallery</span>
-      </div>
+      </div> */}
 
       {/* CONTENT */}
       <div className="gallery-grid">

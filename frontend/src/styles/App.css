@@ -1559,51 +1559,6 @@ body.dragging {
   font-size: 13px;
 }
 
-.gallery-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 6px;
-  background: #c0c0c0;
-  border-bottom: 2px solid #808080;
-  flex-shrink: 0;
-}
-
-.gallery-toolbar-btn {
-  background: #c0c0c0;
-  border-top: 2px solid #ffffff;
-  border-left: 2px solid #ffffff;
-  border-right: 2px solid #404040;
-  border-bottom: 2px solid #404040;
-  padding: 2px 10px;
-  cursor: pointer;
-  font-size: 13px;
-  font-family: "MS Sans Serif", Arial, sans-serif;
-}
-
-.gallery-toolbar-btn:active {
-  border-top: 2px solid #404040;
-  border-left: 2px solid #404040;
-  border-right: 2px solid #ffffff;
-  border-bottom: 2px solid #ffffff;
-}
-
-.gallery-toolbar-divider {
-  width: 2px;
-  height: 24px;
-  background: #808080;
-  border-right: 1px solid #ffffff;
-  margin: 0 4px;
-}
-
-.gallery-path {
-  background: #ffffff;
-  border: 2px inset #c0c0c0;
-  padding: 2px 8px;
-  flex: 1;
-  font-family: "MS Sans Serif", Arial, sans-serif;
-}
-
 .gallery-grid {
   flex: 1;
   overflow-y: auto;
