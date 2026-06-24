@@ -9,6 +9,9 @@ export default function About({ onOpenApp }: Props) {
       <p className="about-title">Full Stack Software Developer</p>
 
       <div className="about-divider" />
+      <img src={"./Self.png"} alt="Self" className="about-image" />
+
+      <div className="about-divider" />
 
       <section className="about-section">
         <h3>Who I Am</h3>
@@ -43,7 +46,7 @@ export default function About({ onOpenApp }: Props) {
           {[
             "React", "TypeScript", "JavaScript", "Node.js", "C#", "C++",
             "Python", "PostgreSQL", "Sequelize", "GraphQL", "HTML", "CSS",
-            "Bootstrap", "Supabase", "Git", "Maya 3D", "Visual Studio Code", "Python", "Unity 2D & 3D", 
+            "Bootstrap", "Supabase", "Git", "Github", "Maya 3D", "Visual Studio Code", "Python", "Unity 2D & 3D", "Jira",
           ].map((tag) => (
             <span key={tag} className="about-tag">
               {tag}

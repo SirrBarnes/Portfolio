@@ -1512,6 +1512,16 @@ body.dragging {
   color: #000050;
 }
 
+.about-image {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+  object-position: top;
+  image-rendering: pixelated;
+  display: block;
+  margin: 0 auto;
+}
+
 /* ========================= */
 /* PROJECTS PAGE */
 /* ========================= */
