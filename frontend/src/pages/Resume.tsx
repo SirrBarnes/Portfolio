@@ -23,13 +23,12 @@ export default function Resume() {
       </div>
 
       <iframe
-        src={resumeUrl}
+        src={`${resumeUrl}#view=FitH`}
         title="Resume"
         style={{
           border: "none",
-          minHeight: "1000px",
           width: "100%",
-          height: "90vh"
+          height: "95vh"
         }}
       />
     </div>
