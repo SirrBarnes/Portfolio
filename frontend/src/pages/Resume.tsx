@@ -25,11 +25,11 @@ export default function Resume() {
       <iframe
         src={resumeUrl}
         title="Resume"
-        width="100%"
-        height="100%"
         style={{
           border: "none",
           minHeight: "1000px",
+          width: "100%",
+          height: "90vh"
         }}
       />
     </div>
