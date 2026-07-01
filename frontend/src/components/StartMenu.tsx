@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import about from '../icons/about.png';
-import projects from '../icons/computer.png';
-import contact from '../icons/contact.png';
-import gallery from '../icons/gallery.png';
-// import minesweep from '../icons/minesweep.png';
-import terminal from '../icons/terminal.png';
-import resume from '../icons/txt.png';
+import about from '../icons/about.webp';
+import projects from '../icons/computer.webp';
+import contact from '../icons/contact.webp';
+import gallery from '../icons/gallery.webp';
+// import minesweep from '../icons/minesweep.webp';
+import terminal from '../icons/terminal.webp';
+import resume from '../icons/txt.webp';
 
 type Props = {
   open: boolean;

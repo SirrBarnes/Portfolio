@@ -9,7 +9,7 @@ export default function About({ onOpenApp }: Props) {
       <p className="about-title">Full Stack Software Developer</p>
 
       <div className="about-divider" />
-      <img src={"./Self.png"} alt="Self" className="about-image" />
+      <img src={"./Self.webp"} alt="Self" className="about-image" />
 
       <div className="about-divider" />
 

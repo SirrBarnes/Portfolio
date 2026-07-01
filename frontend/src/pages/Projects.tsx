@@ -13,8 +13,8 @@ export default function Projects({ onOpenApp }: Props) {
       <section className="about-section project-block">
         <h3>YuGiOh Collection / Deck Builder</h3>
 
-        <img src={"./YuGiOh.png"} alt="YuGiOh Deck Builder" className="project-image" />
-        <img src={"./YuGiOh-Search.png"} alt="YuGiOh Deck Builder screenshot" className="project-image" />
+        <img src={"./YuGiOh.webp"} alt="YuGiOh Deck Builder" className="project-image" />
+        <img src={"./YuGiOh-Search.webp"} alt="YuGiOh Deck Builder screenshot" className="project-image" />
 
 
         <p>
@@ -52,7 +52,7 @@ export default function Projects({ onOpenApp }: Props) {
       <section className="about-section project-block">
         <h3>NeetPlan</h3>
 
-        <img src={"./Neet.png"} alt="Neet Plan" className="project-image" />
+        <img src={"./Neet.webp"} alt="Neet Plan" className="project-image" />
 
 
         <p>
@@ -90,8 +90,8 @@ export default function Projects({ onOpenApp }: Props) {
       <section className="about-section project-block">
         <h3>Autoshops.com</h3>
 
-        <img src={"./Autoshops.png"} alt="Autoshops" className="project-image" />
-        <img src={"./Autoshops-Map.png"} alt="Autoshops Map" className="project-image" />
+        <img src={"./Autoshops.webp"} alt="Autoshops" className="project-image" />
+        <img src={"./Autoshops-Map.webp"} alt="Autoshops Map" className="project-image" />
 
         <p>
           Freelance fullstack work for a small startup, joining their

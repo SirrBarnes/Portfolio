@@ -10,13 +10,13 @@ import Gallery from "../pages/Gallery";
 import Terminal from "../pages/Terminal";
 import Minesweeper from './minesweeper/Minesweeper';
 
-import resume from '../icons/txt.png';
-import contact from '../icons/contact.png';
-import terminal from '../icons/terminal.png';
-import about from '../icons/about.png';
-import gallery from '../icons/gallery.png';
-import projects from '../icons/computer.png';
-// import minesweep from '../icons/minesweep.png';
+import resume from '../icons/txt.webp';
+import contact from '../icons/contact.webp';
+import terminal from '../icons/terminal.webp';
+import about from '../icons/about.webp';
+import gallery from '../icons/gallery.webp';
+import projects from '../icons/computer.webp';
+// import minesweep from '../icons/minesweep.webp';
 
 type WindowType = "Projects" | "About" | "Terminal" | "Contact" | "Resume" | "Gallery" | "Minesweeper" | "ImageViewer";
 
